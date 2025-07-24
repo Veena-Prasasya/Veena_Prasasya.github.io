@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sai Veena Prasasya - Product Designer Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Default light gray background */
+            color: #333;
+            line-height: 1.6;
+            background-size: cover; /* Cover the entire viewport */
+            background-attachment: fixed; /* Fixed background during scroll */
+            background-position: center center; /* Center the background image */
+            transition: background-image 1s ease-in-out, background-color 1s ease-in-out; /* Smooth transition for background */
+            overflow-y: scroll; /* Ensure scrollbar is always visible for snap */
+            scroll-behavior: smooth; /* Smooth scrolling for navigation */
+        }
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .section-heading {
+            border-bottom: 2px solid #ec4899; /* Pink-500 */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block; /* To make border-bottom only as wide as text */
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            -webkit-backdrop-filter: blur(10px); /* For Safari compatibility */
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .project-summary-card {
+            background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            -webkit-backdrop-filter: blur(10px); /* For Safari compatibility */
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1rem; /* Reduced padding for square-like appearance */
+            margin-bottom: 0; /* Managed by gap in grid */
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
+            text-align: center;
+            height: 250px; /* Fixed height for square-like appearance */
+            justify-content: center; /* Center content vertically */
+            overflow: hidden; /* Hide overflow if text is too long */
+        }
+        .project-summary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .project-summary-card img {
+            width: 100px; /* Fixed width for image */
+            height: 100px; /* Fixed height for image */
+            object-fit: contain; /* Ensure image fits without cropping */
+            margin-bottom: 0.75rem; /* Space between image and text */
+            border-radius: 0.5rem; /* Slightly rounded corners for image */
+        }
+        .project-detail-card { /* Style for detailed project views */
+            background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            -webkit-backdrop-filter: blur(10px); /* For Safari compatibility */
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .skill-item {
+            background-color: #fbcfe8; /* Pink-100 */
+            color: #9d174d; /* Pink-700 */
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.5rem; /* rounded-lg */
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* font-medium */
+            display: inline-block;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .contact-link {
+            transition: color 0.2s ease-in-out;
+        }
+        .contact-link:hover {
+            color: #ec4899; /* Pink-500 */
+        }
+        .back-to-top {
+            display: none; /* Hidden by default */
+            position: fixed; /* Fixed/sticky position */
+            bottom: 20px; /* Place the button at the bottom of the page */
+            right: 30px; /* Place the button 30px from the right */
+            z-index: 99; /* Make sure it does not overlap */
+            border: none; /* Remove borders */
+            outline: none; /* Remove outline */
+            background-color: #ec4899; /* Pink-500 */
+            color: white; /* Text color */
+            cursor: pointer; /* Add a mouse pointer on hover */
+            padding: 15px; /* Some padding */
+            border-radius: 50%; /* Rounded corners */
+            font-size: 18px; /* Increase font size */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: background-color 0.3s;
+        }
+
+        .back-to-top:hover {
+            background-color: #db2777; /* Pink-600 on hover */
+        }
+        /* Creative image styles - These are no longer used but kept for reference if you change your mind */
+        .creative-img-left {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            float: left;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .creative-img-right {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            float: right;
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .skill-icon {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+
+        /* Scroll Snap CSS */
+        main {
+            scroll-snap-type: y mandatory; /* Enable vertical scroll snapping */
+            overflow-y: scroll; /* Allow scrolling within the main content */
+            height: 100vh; /* Main now takes full viewport height */
+            scroll-padding-top: 0; /* Start snapping from the very top of the section */
+        }
+        main > section {
+            scroll-snap-align: start; /* Snap to the start of each section */
+            min-height: 100vh; /* Ensure each section takes up full viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically within snapped section */
+        }
+        /* Override card margin-bottom to prevent extra space between snapped sections */
+        main > section.card {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-fuchsia-800 to-black text-white py-8 px-4 sm:px-6 lg:px-8 shadow-lg rounded-b-xl">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-3xl sm:text-4xl font-bold mb-1">Sai Veena Prasasya</h1>
+            <p class="text-lg sm:text-xl font-light">Innovative Product Designer | User Experience Advocate</p>
+            <div class="flex flex-wrap justify-center gap-2 text-sm mt-2">
+                <a href="tel:6302477535" class="hover:underline contact-link">6302477535</a>
+                <span class="hidden sm:inline">|</span>
+                <a href="mailto:asv.prasasya@gmail.com" class="hover:underline contact-link">asv.prasasya@gmail.com</a>
+                <span class="hidden sm:inline">|</span>
+                <a href="https://www.linkedin.com/in/veena-prasasya-ayinaparthi/" target="_blank" rel="noopener noreferrer" class="hover:underline contact-link">LinkedIn</a>
+                <!-- Add GitHub/Portfolio Behance/Dribbble if available -->
+                <span class="hidden sm:inline">|</span>
+                <a href="[Your Portfolio/Behance/Dribbble URL]" target="_blank" rel="noopener noreferrer" class="hover:underline contact-link">Portfolio</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- About Me Section -->
+        <section id="about" class="card clearfix" data-theme-bg="url('https://placehold.co/1920x1080/ec4899/000000?text=Creative+Design')">
+            <h2 class="text-2xl font-semibold section-heading">About Me</h2>
+            <!-- Removed creative-img-left -->
+            <p class="text-gray-700">
+                A passionate and creative recent Computer Science graduate with a solid foundation in technology and a keen eye for user-centric design. Eager to blend analytical thinking with design principles to craft intuitive and impactful digital products. My background in AI/ML and full-stack development provides a unique perspective on technical feasibility, while my problem-solving skills drive me to create seamless user experiences. Committed to continuous learning and remote collaboration, I am excited to contribute to innovative product design challenges.
+            </p>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="card" data-theme-bg="url('https://placehold.co/1920x1080/4a4a4a/ffffff?text=Tech+Skills')">
+            <h2 class="text-2xl font-semibold section-heading">Skills</h2>
+            <div class="mb-4">
+                <h3 class="text-lg font-medium text-gray-800 mb-2">
+                    <!-- Removed skill-icon -->Design & Tools:
+                </h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-item">UI/UX Design</span>
+                    <span class="skill-item">Wireframing</span>
+                    <span class="skill-item">Prototyping</span>
+                    <span class="skill-item">User Research</span>
+                    <span class="skill-item">Figma</span>
+                    <span class="skill-item">Sketch</span>
+                    <span class="skill-item">Adobe XD</span>
+                    <span class="skill-item">Usability Testing</span>
+                    <span class="skill-item">Design Thinking</span>
+                    <span class="skill-item">Information Architecture</span>
+                    <span class="skill-item">Interaction Design</span>
+                </div>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-lg font-medium text-gray-800 mb-2">
+                    <!-- Removed skill-icon -->Technical Foundation:
+                </h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-item">Python (Basic)</span>
+                    <span class="skill-item">JAVA (Basic)</span>
+                    <span class="skill-item">HTML/CSS</span>
+                    <span class="skill-item">JavaScript (Basic)</span>
+                    <span class="skill-item">Git (Basic)</span>
+                    <span class="skill-item">AI/ML Concepts</span>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-lg font-medium text-gray-800 mb-2">
+                    <!-- Removed skill-icon -->Soft Skills:
+                </h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-item">Problem-Solving</span>
+                    <span class="skill-item">Analytical Thinking</span>
+                    <span class="skill-item">User Empathy</span>
+                    <span class="skill-item">Remote Collaboration</span>
+                    <span class="skill-item">Adaptability</span>
+                    <span class="skill-item">Communication</span>
+                    <span class="skill-item">Creativity</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="card" data-theme-bg="url('https://placehold.co/1920x1080/db2777/ffffff?text=Portfolio+Showcase')">
+            <h2 class="text-2xl font-semibold section-heading">Design Projects</h2>
+
+            <!-- Project Summary List (Initially visible) -->
+            <div id="project-list-view" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="project-summary-card" data-project-id="medical-imaging-interface">
+                    <img src="https://placehold.co/100x100/ec4899/ffffff?text=Medical+UI" alt="Medical Imaging Interface Project" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ec4899/ffffff?text=Design+Project';">
+                    <h3 class="text-lg font-semibold text-pink-700">Medical Imaging Interface Design</h3>
+                    <p class="text-xs text-gray-500 mt-1">Click for details</p>
+                </div>
+
+                <div class="project-summary-card" data-project-id="student-app-ux">
+                    <img src="https://placehold.co/100x100/ec4899/ffffff?text=Student+UX" alt="Student Tool UX Design Project" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ec4899/ffffff?text=App+Design';">
+                    <h3 class="text-lg font-semibold text-pink-700">Student Engagement App UX</h3>
+                    <p class="text-xs text-gray-500 mt-1">Click for details</p>
+                </div>
+
+                <div class="project-summary-card" data-project-id="information-credibility-design">
+                    <img src="https://placehold.co/100x100/ec4899/ffffff?text=Credibility+UI" alt="Information Credibility Design Project" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ec4899/ffffff?text=UI+Design';">
+                    <h3 class="text-lg font-semibold text-pink-700">Information Credibility Interface</h3>
+                    <p class="text-xs text-gray-500 mt-1">Click for details</p>
+                </div>
+
+                <div class="project-summary-card" data-project-id="resource-management-dashboard">
+                    <img src="https://placehold.co/100x100/ec4899/ffffff?text=Dashboard+UX" alt="Resource Management Dashboard Project" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ec4899/ffffff?text=Dashboard';">
+                    <h3 class="text-lg font-semibold text-pink-700">Resource Management Dashboard UX</h3>
+                    <p class="text-xs text-gray-500 mt-1">Click for details</p>
+                </div>
+
+                <div class="project-summary-card" data-project-id="classification-interface-design">
+                    <img src="https://placehold.co/100x100/ec4899/ffffff?text=Classifier+UI" alt="Classification Interface Design Project" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ec4899/ffffff?text=Interface';">
+                    <h3 class="text-lg font-semibold text-pink-700">Image Classification User Interface</h3>
+                    <p class="text-xs text-gray-500 mt-1">Click for details</p>
+                </div>
+            </div>
+
+            <!-- Project Detail Views (Initially hidden) -->
+            <div id="project-details-view" class="hidden">
+                <button onclick="showProjectList()" class="mb-4 px-4 py-2 bg-pink-500 text-white rounded-md hover:bg-pink-600 transition duration-200">
+                    &larr; Back to Design Projects
+                </button>
+
+                <!-- Medical Imaging Interface Details -->
+                <div id="medical-imaging-interface-details" class="project-detail-card hidden">
+                    <h3 class="text-xl font-semibold text-pink-700 mb-2">Medical Imaging Interface Design <span class="text-base text-gray-600 font-normal">(Inspired by Liver Tumor Detection)</span></h3>
+                    <p class="text-sm text-gray-500 mb-2">Oct 2021 - June 2025</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Designed intuitive user interfaces for a medical imaging tool, focusing on clear visualization of 3D U-Net segmentation results for liver tumors.</li>
+                        <li>Integrated Explainable AI (SHAP, Grad-CAM++) concepts into the UI to enhance clinical interpretability and build trust for medical professionals.</li>
+                        <li>Conducted user flows and wireframing to optimize the interaction for precise tumor analysis and decision-making.</li>
+                    </ul>
+                </div>
+
+                <!-- Student Engagement App UX Details -->
+                <div id="student-app-ux-details" class="project-detail-card hidden">
+                    <h3 class="text-xl font-semibold text-pink-700 mb-2">Student Engagement App UX <span class="text-base text-gray-600 font-normal">(Inspired by Student Attendance Tool)</span></h3>
+                    <p class="text-sm text-gray-500 mb-2">June 2023</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Led the UX design for a full-stack student application, focusing on seamless attendance tracking and engagement features.</li>
+                        <li>Developed user personas and journey maps to ensure the interface was intuitive and efficient for both students and administrators.</li>
+                        <li>Created wireframes and prototypes for key features, enhancing usability and overall user satisfaction.</li>
+                    </ul>
+                </div>
+
+                <!-- Information Credibility Interface Details -->
+                <div id="information-credibility-design-details" class="project-detail-card hidden">
+                    <h3 class="text-xl font-semibold text-pink-700 mb-2">Information Credibility Interface <span class="text-base text-gray-600 font-normal">(Inspired by Fake News Detection)</span></h3>
+                    <p class="text-sm text-gray-500 mb-2">June 2023</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Designed a user interface to effectively present the credibility analysis of information, building on concepts from a fake news detection system.</li>
+                        <li>Focused on visual hierarchy and clear indicators to help users quickly understand the trustworthiness of content.</li>
+                        <li>Explored different UI patterns for displaying confidence scores and source reliability.</li>
+                    </ul>
+                </div>
+
+                <!-- Resource Management Dashboard UX Details -->
+                <div id="resource-management-dashboard-details" class="project-detail-card hidden">
+                    <h3 class="text-xl font-semibold text-pink-700 mb-2">Resource Management Dashboard UX <span class="text-base text-gray-600 font-normal">(Inspired by Blood Bank Management System)</span></h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Developed a user-friendly dashboard design for managing resources, drawing insights from a blood bank management system's data flow.</li>
+                        <li>Focused on clear data visualization and efficient navigation for critical resource tracking and allocation.</li>
+                        <li>Created wireframes for a responsive interface that could be used by various stakeholders for quick decision-making.</li>
+                    </ul>
+                </div>
+
+                <!-- Image Classification User Interface Details -->
+                <div id="classification-interface-design-details" class="project-detail-card hidden">
+                    <h3 class="text-xl font-semibold text-pink-700 mb-2">Image Classification User Interface <span class="text-base text-gray-600 font-normal">(Inspired by Rice Image Classification)</span></h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Designed an intuitive user interface for an image classification system, enabling easy upload, processing, and display of classification results (e.g., for rice varieties).</li>
+                        <li>Focused on visual feedback and clear presentation of model accuracy and predictions.</li>
+                        <li>Considered user experience for both single image classification and batch processing.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="card" data-theme-bg="url('https://placehold.co/1920x1080/9370DB/ffffff?text=Education+Journey')">
+            <h2 class="text-2xl font-semibold section-heading">Education</h2>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold text-pink-700">Bachelor of Technology in Computer Science</h3>
+                <p class="text-gray-700">Amrita Vishwa Vidyapeetham, Eluru, Andhra Pradesh</p>
+                <p class="text-sm text-gray-500">Graduation Date: June 2025 (Anticipated)</p>
+                <p class="text-gray-700">GPA: 8.02/10</p>
+                <p class="text-gray-700">Coursework: Machine Learning, Deep Learning, Object-Oriented Programming (OOPS), Database Management Systems (DBMS), Operating Systems (OS), Computer Networks</p>
+            </div>
+        </section>
+
+        <!-- Research Experience Section -->
+        <section id="research" class="card" data-theme-bg="url('https://placehold.co/1920x1080/9370DB/ffffff?text=Research+Insights')">
+            <h2 class="text-2xl font-semibold section-heading">Research & Exploration</h2>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold text-pink-700">Exploration into Secure IoT Interface Design <span class="text-base text-gray-600 font-normal">(Inspired by PRNU based Scanner research)</span></h3>
+                <p class="text-sm text-gray-500 mb-2">Oct 2021 - Dec 2022</p>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>Investigated user experience challenges and design opportunities in secure IoT device interfaces, drawing insights from research on camera identification robustness.</li>
+                    <li>Explored how design principles can enhance trust and usability in security-critical IoT applications.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Leadership and Extracurricular Activities Section -->
+        <section id="leadership" class="card" data-theme-bg="url('https://placehold.co/1920x1080/f3f4f6/333333?text=Professional+Journey')">
+            <h2 class="text-2xl font-semibold section-heading">Leadership and Extracurricular Activities</h2>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold text-pink-700">Led an awareness session and hands-on yoga workshop <span class="text-base text-gray-600 font-normal">(Journey to inner bliss)</span></h3>
+                <p class="text-sm text-gray-500 mb-2">June 2023 - Aug 2023</p>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>Introduced stress relief techniques to high school students with the help of a certified yoga practitioner, demonstrating strong organizational and communication skills.</li>
+                </ul>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold text-pink-700">Member @ ACM Amrita</h3>
+                <p class="text-sm text-gray-500 mb-2">2022</p>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>Collaborated with peers on technical projects and workshops, fostering teamwork and interdisciplinary problem-solving.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="card text-center" data-theme-bg="url('https://placehold.co/1920x1080/f0abfc/000000?text=Connect+With+Me')">
+            <h2 class="text-2xl font-semibold section-heading">Contact Me</h2>
+            <p class="text-gray-700 mb-4">Let's connect and create something amazing!</p>
+            <div class="flex flex-wrap justify-center gap-4 text-lg">
+                <a href="tel:6302477535" class="text-pink-600 hover:text-pink-800 contact-link">Phone: 6302477535</a>
+                <a href="mailto:asv.prasasya@gmail.com" class="text-pink-600 hover:text-pink-800 contact-link">Email: asv.prasasya@gmail.com</a>
+                <a href="https://www.linkedin.com/in/veena-prasasya-ayinaparthi/" target="_blank" rel="noopener noreferrer" class="text-pink-600 hover:text-pink-800 contact-link">LinkedIn Profile</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button onclick="scrollToTop()" id="backToTopBtn" class="back-to-top">
+        &#9650; <!-- Unicode for an upward-pointing triangle -->
+    </button>
+
+    <script>
+        // Get the button
+        let mybutton = document.getElementById("backToTopBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // For smooth scrolling
+            });
+        }
+
+        // --- Dynamic Background Theme Logic ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('main > section'); // Target direct child sections of main
+            const body = document.body;
+
+            const observerOptions = {
+                root: null, // Use the viewport as the root
+                rootMargin: '0px',
+                threshold: 0.5 // Trigger when 50% of the section is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const themeBg = entry.target.getAttribute('data-theme-bg');
+                        if (themeBg) {
+                            body.style.backgroundImage = themeBg;
+                        } else {
+                            body.style.backgroundImage = 'none';
+                            body.style.backgroundColor = '#f3f4f6'; // Fallback to default light gray
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            // Observe each section
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // --- Project Navigation Logic (existing) ---
+            const projectSummaryCards = document.querySelectorAll('.project-summary-card');
+            const projectListView = document.getElementById('project-list-view');
+            const projectDetailsView = document.getElementById('project-details-view');
+            const allProjectDetailCards = document.querySelectorAll('.project-detail-card');
+
+            window.showProjectDetails = function(projectId) {
+                projectListView.classList.add('hidden');
+                projectDetailsView.classList.remove('hidden');
+                allProjectDetailCards.forEach(card => {
+                    card.classList.add('hidden');
+                });
+                const targetDetailCard = document.getElementById(projectId + '-details');
+                if (targetDetailCard) {
+                    targetDetailCard.classList.remove('hidden');
+                    projectDetailsView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            };
+
+            window.showProjectList = function() {
+                projectListView.classList.remove('hidden');
+                projectDetailsView.classList.add('hidden');
+                allProjectDetailCards.forEach(card => {
+                    card.classList.add('hidden');
+                });
+                document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            };
+
+            projectSummaryCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const projectId = this.dataset.projectId;
+                    showProjectDetails(projectId);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
